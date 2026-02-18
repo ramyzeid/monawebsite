@@ -1,0 +1,224 @@
+/* Google Fonts — must be first before all other imports */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Custom Design Tokens ─── */
+@theme inline {
+  --color-obsidian:   #0a0a0a;
+  --color-onyx:       #111111;
+  --color-graphite:   #161616;
+  --color-smoke:      #1e1e1e;
+  --color-border:     #2a2a2a;
+  --color-ash:        #4a4a4a;
+  --color-muted:      #888888;
+  --color-pearl:      #c8c8c8;
+  --color-ivory:      #f5f0e8;
+  --color-gold:       #c9a84c;
+  --color-gold-light: #e8c97a;
+  --color-gold-dim:   #9b7d35;
+  --color-gold-dark:  #5c4715;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-sans:    'Inter', sans-serif;
+}
+
+/* ─── CSS Variables ─── */
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dark: #5c4715;
+  --cream: #f5f0e8;
+  --border-c: #2a2a2a;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* ─── Base ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #f5f0e8;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: #c9a84c;
+  color: #0a0a0a;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 2px; }
+
+/* ─── Grain Texture ─── */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain 8s steps(10) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10%       { transform: translate(-5%, -10%); }
+  20%       { transform: translate(-15%, 5%); }
+  30%       { transform: translate(7%, -25%); }
+  40%       { transform: translate(-5%, 25%); }
+  50%       { transform: translate(-15%, 10%); }
+  60%       { transform: translate(15%, 0%); }
+  70%       { transform: translate(0%, 15%); }
+  80%       { transform: translate(3%, 35%); }
+  90%       { transform: translate(-10%, 10%); }
+}
+
+/* ─── Marquee ─── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 28s linear infinite;
+  display: flex;
+  width: max-content;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Horizontal timeline ─── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-gold {
+  background: linear-gradient(90deg, #c9a84c 0%, #f5e199 40%, #c9a84c 60%, #8a6b1e 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── Clip path helpers ─── */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+
+/* ─── Image placeholder pattern ─── */
+.img-placeholder {
+  background-color: #161616;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(201,168,76,0.04) 20px,
+      rgba(201,168,76,0.04) 21px
+    );
+  position: relative;
+}
+.img-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ─── Gold glow ─── */
+.gold-glow {
+  box-shadow: 0 0 40px rgba(201,168,76,0.15), 0 0 80px rgba(201,168,76,0.06);
+}
+.gold-text-glow {
+  text-shadow: 0 0 40px rgba(201,168,76,0.4);
+}
+
+/* ─── Section label ─── */
+.section-label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #c9a84c;
+}
+
+/* ─── Gold underline hover ─── */
+.gold-underline {
+  position: relative;
+}
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #c9a84c;
+  transition: width 0.4s ease;
+}
+.gold-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── Process step connector ─── */
+.step-connector {
+  background: linear-gradient(90deg, #c9a84c, rgba(201,168,76,0.1));
+}
+
+/* ─── Portfolio card overlay ─── */
+.portfolio-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(10,10,10,0.95) 0%,
+    rgba(10,10,10,0.4) 60%,
+    transparent 100%
+  );
+}
+
+/* ─── Button styles ─── */
+.btn-gold {
+  background: #c9a84c;
+  color: #0a0a0a;
+  padding: 0.75rem 2.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-family: var(--font-inter), sans-serif;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.btn-gold:hover {
+  background: #e8c97a;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.25);
+}
+
+.btn-outline-gold {
+  border: 1px solid #c9a84c;
+  color: #c9a84c;
+  padding: 0.75rem 2.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-family: var(--font-inter), sans-serif;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.btn-outline-gold:hover {
+  background: #c9a84c;
+  color: #0a0a0a;
+  transform: translateY(-1px);
+}
