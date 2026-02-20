@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const stats = [
-  { value: 14, suffix: '+', label: 'Years of Experience', sub: 'Across 4 continents' },
+  { value: 17, suffix: '+', label: 'Years of Experience', sub: 'Across 4 continents' },
   { value: 200, suffix: '+', label: 'Commercial Productions', sub: 'As Production Designer & Art Director' },
   { value: 3, suffix: '', label: 'Emmy Awards', sub: 'Regional Emmy for Best Historical Documentary' },
   { value: 12, suffix: '+', label: 'Countries', sub: 'International production experience' },

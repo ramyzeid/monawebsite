@@ -24,7 +24,7 @@ const education = [
   {
     school: 'Egyptian Higher Institute of Cinema — Academy of Arts',
     degree: 'BFA, Production Design & Costume Design',
-    year: '2014',
+    year: '2008–2014',
     note: 'Cairo, Egypt',
   },
 ];
@@ -108,7 +108,7 @@ export default function About() {
 
             {/* Accreditation badges */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '2rem' }}>
-              {['IATSE Local 829', 'NYU Tisch MFA', 'Emmy Winner', '14+ Years'].map((badge) => (
+              {['IATSE Local 829', 'NYU Tisch MFA', 'Emmy Winner', '17+ Years'].map((badge) => (
                 <span
                   key={badge}
                   style={{
@@ -156,19 +156,20 @@ export default function About() {
               style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2.5rem' }}
             >
               <p style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.95rem', lineHeight: 1.8, color: '#c8c8c8', margin: 0 }}>
-                I am Mona Mekkawi — an international Production Designer and Art Director based in New York,
-                with over 14 years of experience across the Middle East, Turkey, Malaysia, the UK, and the United States.
-                I started my career at 17, becoming one of the youngest production designers in Egypt.
+                I am Mona Mekkawi — a Set and Production Designer, Art Director, Events Designer, and Filmmaker
+                currently based in New York City. With over 17 years of experience, I started working at the age of 18
+                in the film and advertising field and have built a career spanning the Middle East, Turkey, Malaysia, the UK, and the United States.
               </p>
               <p style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.95rem', lineHeight: 1.8, color: '#c8c8c8', margin: 0 }}>
-                My work has screened at <span style={{ color: '#f5f0e8' }}>Cannes, Sundance, and the Berlin International Film Festival</span>,
-                and the documentary <em>Oversight</em>, which I designed, earned three Emmy Awards — making me the
-                <span style={{ color: 'var(--gold)' }}> first Egyptian woman to win an Emmy</span>.
+                My work has gained recognition internationally, being featured in renowned film festivals such as the{' '}
+                <span style={{ color: '#f5f0e8' }}>Cannes Film Festival, the Sundance Film Festival, and the Berlin International Film Festival</span>.
+                The documentary <em>Oversight</em>, which I designed, received three Emmy Awards — solidifying my position as
+                <span style={{ color: 'var(--gold)' }}> one of the first Egyptian women to achieve such recognition</span>.
               </p>
               <p style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.95rem', lineHeight: 1.8, color: '#c8c8c8', margin: 0 }}>
-                I have designed over 200 commercial productions, served as a proud member of IATSE Local 829,
-                and designed immersive experiences including Egypt&apos;s Burning Man equivalent — the Oshtoora Music &amp;
-                Art Festival — for two seasons. My craft is storytelling through space, texture, and light.
+                My passion lies in creating immersive and authentic worlds, drawing inspiration from my diverse cultural background.
+                I have a keen interest in merging history with the future, exploring themes of time, progress, and societal evolution —
+                and in highlighting universal experiences that connect people across different backgrounds and locations.
               </p>
             </motion.div>
 

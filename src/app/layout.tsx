@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Mona Mekkawi | Production Designer & Art Director",
   description:
-    "Emmy Award-winning Production Designer and Art Director based in New York. NYU Tisch MFA. IATSE Local 829. 14+ years across Film, TV, Commercials, and Luxury Brand Campaigns.",
+    "Emmy Award-winning Production Designer and Art Director based in New York. NYU Tisch MFA. IATSE Local 829. 17+ years across Film, TV, Commercials, and Luxury Brand Campaigns.",
   keywords: [
     "production designer",
     "art director",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mona Mekkawi | Production Designer & Art Director",
     description:
-      "Emmy Award-winning Production Designer. 14+ years. NYU Tisch. IATSE Local 829. Film, TV & Luxury Brand Campaigns.",
+      "Emmy Award-winning Production Designer. 17+ years. NYU Tisch. IATSE Local 829. Film, TV & Luxury Brand Campaigns.",
     type: "website",
     url: "https://www.monamekkawi.com",
     siteName: "Mona Mekkawi",

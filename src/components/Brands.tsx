@@ -22,7 +22,7 @@ const ugcServices = [
   {
     icon: <Film size={20} />,
     title: 'Commercial Art Direction',
-    desc: '14+ years directing the visual language of 200+ commercial productions. From concept to camera, I ensure every frame communicates your brand story.',
+    desc: '17+ years directing the visual language of 200+ commercial productions. From concept to camera, I ensure every frame communicates your brand story.',
   },
   {
     icon: <Star size={20} />,

@@ -191,7 +191,7 @@ export default function Footer() {
                 'NYU Tisch School of the Arts, MFA',
                 'Egyptian Higher Institute of Cinema, BFA',
                 'Cannes · Sundance · Berlin',
-                '14+ Years International Experience',
+                '17+ Years International Experience',
                 '200+ Commercial Productions',
               ].map((item) => (
                 <li

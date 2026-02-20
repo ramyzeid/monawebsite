@@ -2,88 +2,18 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { projects as allProjects } from '@/data/projects';
+import type { Category } from '@/data/projects';
 
-type Category = 'All' | 'Film' | 'Documentary' | 'Commercial' | 'Events';
+type FilterCategory = 'All' | Category;
 
-const categories: Category[] = ['All', 'Film', 'Documentary', 'Commercial', 'Events'];
-
-interface Project {
-  id: number;
-  title: string;
-  year: string;
-  category: Omit<Category, 'All'>;
-  desc: string;
-  awards?: string[];
-  festivals?: string[];
-  gradient: string;
-  featured?: boolean;
-}
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: 'Oversight',
-    year: '2020',
-    category: 'Documentary',
-    desc: 'A landmark historical documentary that earned three Emmy Awards, including Regional Emmy for Best Historical Documentary Film. Directed by Jon Shink & Michael Skinner.',
-    awards: ['Regional Emmy — Best Historical Documentary', 'Emmy Award × 3'],
-    festivals: ['Regional Emmy Awards'],
-    gradient: 'linear-gradient(135deg, #1a0f00 0%, #3d2800 50%, #1a0f00 100%)',
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'Marriage: Impossible',
-    year: '2018',
-    category: 'Film',
-    desc: 'Feature film with production design blending contemporary and traditional Middle Eastern aesthetics. A complex, multi-location production with a full art department.',
-    gradient: 'linear-gradient(135deg, #060d1a 0%, #0d1f35 50%, #060d1a 100%)',
-  },
-  {
-    id: 3,
-    title: 'The Aftermath of the Inauguration of the Public Toilet at Kilometer 375',
-    year: '2014',
-    category: 'Film',
-    desc: 'Graduation thesis short film directed by Omar El-Zohairy. Received nominations and selections at major international festivals.',
-    festivals: ['Cannes Film Festival', 'Palm Springs ShortFest', 'Dubai IFF', 'Durban IFF', 'Nashville FF', 'Montpellier FF'],
-    awards: ['Best Live Action Short — Palm Springs ShortFest', 'Best Short Film — Mill Valley FF', 'Gold Djed — Luxor EEIFF'],
-    gradient: 'linear-gradient(135deg, #0f0f0f 0%, #1a1208 50%, #0f0f0f 100%)',
-    featured: true,
-  },
-  {
-    id: 4,
-    title: 'Oshtoora Festival',
-    year: '2015–2016',
-    category: 'Events',
-    desc: 'Production Design Director for Egypt\'s Burning Man — the Oshtoora Music & Art Festival — across two seasons. Large-scale experiential environment design for thousands of attendees.',
-    gradient: 'linear-gradient(135deg, #120a00 0%, #2a1500 50%, #120a00 100%)',
-    featured: true,
-  },
-  {
-    id: 5,
-    title: 'Commercial Portfolio',
-    year: '2010–Present',
-    category: 'Commercial',
-    desc: '200+ commercial productions across the Middle East, Turkey, Malaysia, UK, and the USA. Full production design and art direction for international brands and agencies.',
-    gradient: 'linear-gradient(135deg, #0a0a12 0%, #12121f 50%, #0a0a12 100%)',
-    featured: true,
-  },
-  {
-    id: 6,
-    title: 'TV Series & Films — Middle East',
-    year: '2010–2019',
-    category: 'Film',
-    desc: 'Art Department work on numerous TV series and feature films throughout the Middle East. Building a foundation across genres, scales, and production cultures.',
-    gradient: 'linear-gradient(135deg, #0a0f06 0%, #121a08 50%, #0a0f06 100%)',
-  },
-];
+const categories: FilterCategory[] = ['All', 'Narrative', 'Documentary', 'Commercial', 'Events', 'Music Video'];
 
 export default function Portfolio() {
-  const [active, setActive] = useState<Category>('All');
+  const [active, setActive] = useState<FilterCategory>('All');
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const filtered = active === 'All' ? projects : projects.filter(p => p.category === active);
+  const filtered = active === 'All' ? allProjects : allProjects.filter(p => p.category === active);
 
   return (
     <section id="portfolio" style={{ backgroundColor: '#0a0a0a', padding: '8rem 0' }}>
@@ -170,35 +100,39 @@ export default function Portfolio() {
                   aspectRatio: '4/3',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  background: project.gradient,
+                  background: '#111',
                 }}
               >
-                {/* Background pattern */}
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(201,168,76,0.03) 30px, rgba(201,168,76,0.03) 31px)',
-                }} />
-
-                {/* Featured badge */}
-                {project.featured && (
+                {/* Real photo or fallback pattern */}
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    style={{
+                      position: 'absolute', inset: 0,
+                      width: '100%', height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.6s ease',
+                      transform: hovered === project.id ? 'scale(1.06)' : 'scale(1)',
+                    }}
+                  />
+                ) : (
                   <div style={{
-                    position: 'absolute', top: '1rem', right: '1rem', zIndex: 3,
-                    background: 'var(--gold)',
-                    color: '#0a0a0a',
-                    padding: '0.25rem 0.65rem',
-                    fontSize: '0.55rem',
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                    fontFamily: 'var(--font-inter), sans-serif',
-                    fontWeight: 600,
-                  }}>
-                    Featured
-                  </div>
+                    position: 'absolute', inset: 0,
+                    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(201,168,76,0.03) 30px, rgba(201,168,76,0.03) 31px)',
+                  }} />
                 )}
+
+                {/* Internal link overlay */}
+                <a
+                  href={`/projects/${project.slug}`}
+                  aria-label={`View ${project.title}`}
+                  style={{ position: 'absolute', inset: 0, zIndex: 4 }}
+                />
 
                 {/* Category */}
                 <div style={{
-                  position: 'absolute', top: '1rem', left: '1rem', zIndex: 3,
+                  position: 'absolute', top: '1rem', left: '1rem', zIndex: 3, pointerEvents: 'none',
                   border: '1px solid rgba(201,168,76,0.35)',
                   color: 'var(--gold)',
                   padding: '0.25rem 0.65rem',
@@ -210,13 +144,13 @@ export default function Portfolio() {
                   {project.category}
                 </div>
 
-                {/* Overlay — always visible base */}
+                {/* Overlay */}
                 <div
-                  className="portfolio-overlay"
                   style={{
                     position: 'absolute', inset: 0, zIndex: 2,
                     transition: 'opacity 0.4s ease',
-                    opacity: hovered === project.id ? 1 : 0.7,
+                    opacity: hovered === project.id ? 1 : 0,
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)',
                   }}
                 />
 
@@ -224,10 +158,12 @@ export default function Portfolio() {
                 <div style={{
                   position: 'absolute', bottom: 0, left: 0, right: 0,
                   zIndex: 3, padding: '1.5rem',
+                  pointerEvents: 'none',
                   transform: hovered === project.id ? 'translateY(0)' : 'translateY(8px)',
-                  transition: 'transform 0.4s ease',
+                  opacity: hovered === project.id ? 1 : 0,
+                  transition: 'transform 0.4s ease, opacity 0.4s ease',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                  <div style={{ marginBottom: '0.25rem' }}>
                     <h3 style={{
                       fontFamily: 'var(--font-cormorant), serif',
                       fontWeight: 500,
@@ -235,35 +171,23 @@ export default function Portfolio() {
                       color: '#f5f0e8',
                       margin: 0,
                       lineHeight: 1.2,
-                    }}>
-                      {project.title.length > 40 ? project.title.slice(0, 40) + '…' : project.title}
-                    </h3>
-                    <span style={{
-                      fontFamily: 'var(--font-inter), sans-serif',
-                      fontSize: '0.65rem',
-                      color: 'var(--gold)',
-                      letterSpacing: '0.1em',
                       whiteSpace: 'nowrap',
-                    }}>
-                      {project.year}
-                    </span>
-                  </div>
-
-                  {/* Description — show on hover */}
-                  <motion.p
-                    animate={{ opacity: hovered === project.id ? 1 : 0, height: hovered === project.id ? 'auto' : 0 }}
-                    transition={{ duration: 0.35 }}
-                    style={{
-                      fontFamily: 'var(--font-inter), sans-serif',
-                      fontSize: '0.75rem',
-                      lineHeight: 1.7,
-                      color: '#c8c8c8',
-                      margin: '0 0 0.75rem',
                       overflow: 'hidden',
-                    }}
-                  >
-                    {project.desc}
-                  </motion.p>
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {project.title}
+                    </h3>
+                  </div>
+                  <p style={{
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontSize: '0.6rem',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(201,168,76,0.7)',
+                    margin: '0 0 0.5rem',
+                  }}>
+                    {project.role}
+                  </p>
 
                   {/* Awards */}
                   {project.awards && hovered === project.id && (
@@ -284,23 +208,6 @@ export default function Portfolio() {
                     </div>
                   )}
                 </div>
-
-                {/* External link icon on hover */}
-                {hovered === project.id && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      zIndex: 3,
-                    }}
-                  >
-                    <ExternalLink size={24} style={{ color: 'rgba(255,255,255,0.3)' }} />
-                  </motion.div>
-                )}
               </motion.article>
             ))}
           </AnimatePresence>
